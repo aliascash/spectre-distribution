@@ -14,7 +14,7 @@ RUN cd /filesToUpload \
  && github-release upload \
         --user HLXEasy \
         --security-token ${GITHUB_TOKEN} \
-        --repo github-uploader \
+        --repo spectre-distribution \
         --tag latest \
         --name "${ARCHIVE}" \
         --file /filesToUpload/${ARCHIVE} \
