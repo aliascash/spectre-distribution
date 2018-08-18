@@ -13,10 +13,10 @@ RUN cd /filesToUpload \
  && tar czf ${ARCHIVE} . \
  && github-release upload \
         --user HLXEasy \
-        --security-token ${GITHUB_TOKEN} \
+        --security-token "${GITHUB_TOKEN}" \
         --repo spectre-distribution \
         --tag latest \
         --name "${ARCHIVE}" \
-        --file /filesToUpload/${ARCHIVE} \
+        --file "/filesToUpload/${ARCHIVE}" \
  && rm -rf /filesToUpload/* \
  && export GITHUB_TOKEN=---
