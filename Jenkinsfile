@@ -21,6 +21,32 @@ pipeline {
                 echo "Upload finished"
             }
         }
+        stage ("Upload Ubuntu binaries") {
+            agent {
+                dockerfile {
+                    filename 'Ubuntu/binary/Dockerfile'
+                    reuseNode true
+                    label 'temporary-uploader'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                }
+            }
+            steps {
+                echo "Upload finished"
+            }
+        }
+        stage ("Upload Fedora binaries") {
+            agent {
+                dockerfile {
+                    filename 'Fedora/binary/Dockerfile'
+                    reuseNode true
+                    label 'temporary-uploader'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                }
+            }
+            steps {
+                echo "Upload finished"
+            }
+        }
     }
     post {
         always {
