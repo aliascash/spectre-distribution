@@ -9,7 +9,7 @@ RUN mkdir -p /filesToUpload/usr/local/bin
 # Unfortunately it is not possible to use parameters on "--from=...",
 # so we need separate Dockerfiles
 COPY --from=spectreproject/spectre-fedora:latest /usr/local/bin/spectrecoin  /filesToUpload/usr/local/bin/
-COPY --from=spectreproject/spectre-fedoar:latest /usr/local/bin/spectrecoind /filesToUpload/usr/local/bin/
+COPY --from=spectreproject/spectre-fedora:latest /usr/local/bin/spectrecoind /filesToUpload/usr/local/bin/
 
 RUN cd /filesToUpload \
  && tar czf ${ARCHIVE} . \
