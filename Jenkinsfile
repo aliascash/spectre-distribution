@@ -24,7 +24,7 @@ pipeline {
     }
     post {
         always {
-            sh 'docker-gc'
+            sh 'echo "todo: docker-gc"'
         }
     }
 }
