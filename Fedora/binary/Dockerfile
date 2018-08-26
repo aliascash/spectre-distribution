@@ -3,7 +3,7 @@ FROM spectreproject/github-uploader:latest
 ARG GITHUB_TOKEN=1234567
 ARG SPECTRECOIN_RELEASE=latest
 #ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-ENV ARCHIVE=spectrecoin-wallet-fedora.tgz
+ENV ARCHIVE=Spectrecoin-${SPECTRECOIN_RELEASE}-Fedora.tgz
 
 RUN mkdir -p /filesToUpload/usr/local/bin
 
