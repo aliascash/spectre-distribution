@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         GITHUB_TOKEN = credentials('cdc81429-53c7-4521-81e9-83a7992bca76')
-        SPECTRECOIN_RELEASE="2.0.6"
+        SPECTRECOIN_RELEASE="v2.0.6"
     }
     stages {
         stage ("Upload Debian binaries") {
