@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         GITHUB_TOKEN = credentials('cdc81429-53c7-4521-81e9-83a7992bca76')
+        SPECTRECOIN_RELEASE="2.0.6"
     }
     stages {
         stage ("Upload Debian binaries") {
@@ -14,7 +15,7 @@ pipeline {
                     filename 'Debian/binary/Dockerfile'
                     reuseNode true
                     label 'temporary-uploader'
-                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
                 }
             }
             steps {
@@ -27,7 +28,7 @@ pipeline {
                     filename 'Ubuntu/binary/Dockerfile'
                     reuseNode true
                     label 'temporary-uploader'
-                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
                 }
             }
             steps {
@@ -40,7 +41,7 @@ pipeline {
                     filename 'Fedora/binary/Dockerfile'
                     reuseNode true
                     label 'temporary-uploader'
-                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
                 }
             }
             steps {
