@@ -48,6 +48,19 @@ pipeline {
                 echo "Upload finished"
             }
         }
+        stage ("Upload Raspberry Pi binaries") {
+            agent {
+                dockerfile {
+                    filename 'RaspberryPi/binary/Dockerfile'
+                    reuseNode true
+                    label 'temporary-uploader'
+                    additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                }
+            }
+            steps {
+                echo "Upload finished"
+            }
+        }
     }
     post {
         always {
