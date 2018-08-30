@@ -2,6 +2,7 @@ FROM spectreproject/github-uploader:latest
 
 ARG GITHUB_TOKEN=1234567
 ARG SPECTRECOIN_RELEASE=latest
+ARG SPECTRECOIN_REPOSITORY=spectre
 #ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 ENV ARCHIVE=Spectrecoin-${SPECTRECOIN_RELEASE}-Fedora.tgz
 
@@ -17,7 +18,7 @@ RUN cd /filesToUpload \
  && github-release upload \
         --user spectrecoin \
         --security-token "${GITHUB_TOKEN}" \
-        --repo spectre \
+        --repo "${SPECTRECOIN_REPOSITORY}" \
         --tag "${SPECTRECOIN_RELEASE}" \
         --name "${ARCHIVE}" \
         --file "/filesToUpload/${ARCHIVE}" \
