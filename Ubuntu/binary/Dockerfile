@@ -1,8 +1,10 @@
 FROM spectreproject/github-uploader:latest
 
 ARG GITHUB_TOKEN=1234567
+ARG SPECTRECOIN_RELEASE=latest
+ARG SPECTRECOIN_REPOSITORY=spectre
 #ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-ENV ARCHIVE=spectrecoin-wallet-ubuntu.tgz
+ENV ARCHIVE=Spectrecoin-${SPECTRECOIN_RELEASE}-Ubuntu.tgz
 
 RUN mkdir -p /filesToUpload/usr/local/bin
 
@@ -14,10 +16,10 @@ COPY --from=spectreproject/spectre-ubuntu:latest /usr/local/bin/spectrecoind /fi
 RUN cd /filesToUpload \
  && tar czf ${ARCHIVE} . \
  && github-release upload \
-        --user HLXEasy \
+        --user spectrecoin \
         --security-token "${GITHUB_TOKEN}" \
-        --repo spectre-distribution \
-        --tag latest \
+        --repo "${SPECTRECOIN_REPOSITORY}" \
+        --tag "${SPECTRECOIN_RELEASE}" \
         --name "${ARCHIVE}" \
         --file "/filesToUpload/${ARCHIVE}" \
  && rm -rf /filesToUpload/* \
