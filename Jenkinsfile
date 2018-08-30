@@ -25,11 +25,21 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Debian/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution'
+//                        dockerfile {
+//                            filename 'Debian/binary/Dockerfile'
+//                            reuseNode true
+//                            label 'temporary-uploader'
+//                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution'
+//                        }
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Debian/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-debian",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
