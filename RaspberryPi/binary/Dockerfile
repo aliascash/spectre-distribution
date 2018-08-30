@@ -3,6 +3,7 @@ FROM spectreproject/github-uploader:latest
 ARG GITHUB_TOKEN=1234567
 ARG SPECTRECOIN_RELEASE=latest
 ARG SPECTRECOIN_REPOSITORY=spectre
+ARG REPLACE_EXISTING_ARCHIVE=''
 #ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 ENV ARCHIVE=Spectrecoin-${SPECTRECOIN_RELEASE}-RaspberryPi.tgz
 
@@ -22,5 +23,6 @@ RUN cd /filesToUpload \
         --tag "${SPECTRECOIN_RELEASE}" \
         --name "${ARCHIVE}" \
         --file "/filesToUpload/${ARCHIVE}" \
+        ${REPLACE_EXISTING_ARCHIVE} \
  && rm -rf /filesToUpload/* \
  && export GITHUB_TOKEN=---

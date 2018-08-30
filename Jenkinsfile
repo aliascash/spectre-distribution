@@ -31,7 +31,7 @@ pipeline {
                             sh "cp ./Debian/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-debian",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -54,7 +54,7 @@ pipeline {
                             sh "cp ./CentOS/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-centos",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -77,7 +77,7 @@ pipeline {
                             sh "cp ./Fedora/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-fedora",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -99,7 +99,7 @@ pipeline {
                             sh "cp ./RaspberryPi/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-raspi",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -121,7 +121,7 @@ pipeline {
                             sh "cp ./Ubuntu/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-ubuntu",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
