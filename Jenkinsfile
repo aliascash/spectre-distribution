@@ -25,12 +25,6 @@ pipeline {
                         label "docker"
                     }
                     steps {
-//                        dockerfile {
-//                            filename 'Debian/binary/Dockerfile'
-//                            reuseNode true
-//                            label 'temporary-uploader'
-//                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution'
-//                        }
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
@@ -54,11 +48,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'CentOS/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./CentOS/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-centos",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -73,11 +71,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Fedora/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Fedora/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-fedora",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -91,11 +93,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'RaspberryPi/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./RaspberryPi/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-raspi",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -109,11 +115,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Ubuntu/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Ubuntu/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-ubuntu",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -134,11 +144,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Debian/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Debian/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-debian",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -153,11 +167,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'CentOS/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs  '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./CentOS/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-centos",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -172,11 +190,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Fedora/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Fedora/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-fedora",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -190,11 +212,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'RaspberryPi/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./RaspberryPi/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-raspi",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
@@ -208,11 +234,15 @@ pipeline {
                         label "docker"
                     }
                     steps {
-                        dockerfile {
-                            filename 'Ubuntu/binary/Dockerfile'
-                            reuseNode true
-                            label 'temporary-uploader'
-                            additionalBuildArgs '--build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE}'
+                        script {
+                            // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
+                            // So copy required Dockerfile to root dir for each build
+                            sh "cp ./Ubuntu/binary/Dockerfile ."
+                            docker.build(
+                                    "spectreproject/spectre-distribution-ubuntu",
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                            )
+                            sh "rm Dockerfile"
                         }
                     }
                     post {
