@@ -12,9 +12,24 @@ pipeline {
         // In case another branch beside master or develop should be deployed, enter it here
         BRANCH_TO_DEPLOY = 'xyz'
         GITHUB_TOKEN = credentials('cdc81429-53c7-4521-81e9-83a7992bca76')
-        SPECTRECOIN_RELEASE = "v2.0.6"
+        SPECTRECOIN_RELEASE = "v2.0.7"
+        DISCORD_WEBHOOK = credentials('991ce248-5da9-4068-9aea-8a6c2c388a19')
     }
     stages {
+        stage('Notification') {
+            steps {
+                discordSend(
+                        description: "**Started build of branch $BRANCH_NAME**\n",
+                        footer: 'Jenkins - the builder',
+                        image: '',
+                        link: "$env.BUILD_URL",
+                        successful: true,
+                        thumbnail: 'https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png',
+                        title: "$env.JOB_NAME",
+                        webhookURL: "${DISCORD_WEBHOOK}"
+                )
+            }
+        }
         stage('Latest binary archives') {
             when {
                 anyOf { branch 'develop'; branch "${BRANCH_TO_DEPLOY}" }
@@ -150,7 +165,7 @@ pipeline {
                             sh "cp ./Debian/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-debian",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -173,7 +188,7 @@ pipeline {
                             sh "cp ./CentOS/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-centos",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -196,7 +211,7 @@ pipeline {
                             sh "cp ./Fedora/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-fedora",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -218,7 +233,7 @@ pipeline {
                             sh "cp ./RaspberryPi/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-raspi",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -240,7 +255,7 @@ pipeline {
                             sh "cp ./Ubuntu/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-ubuntu",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -252,6 +267,78 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        success {
+            script {
+                /*
+                 * Disabled until email notification requirements where set up
+                if (!hudson.model.Result.SUCCESS.equals(currentBuild.getPreviousBuild()?.getResult())) {
+                    emailext(
+                            subject: "GREEN: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                            body: '${JELLY_SCRIPT,template="html"}',
+                            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                            to: "to@be.defined",
+                            replyTo: "to@be.defined"
+                    )
+                }
+                */
+                discordSend(
+                        description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Success\n",
+                        footer: 'Jenkins - the builder',
+                        image: '',
+                        link: "$env.BUILD_URL",
+                        successful: true,
+                        thumbnail: 'https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png',
+                        title: "$env.JOB_NAME",
+                        webhookURL: "${DISCORD_WEBHOOK}"
+                )
+            }
+        }
+        unstable {
+            /*
+             * Disabled until email notification requirements where set up
+            emailext(
+                    subject: "YELLOW: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                    body: '${JELLY_SCRIPT,template="html"}',
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    to: "to@be.defined",
+                    replyTo: "to@be.defined"
+            )
+            */
+            discordSend(
+                    description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Unstable\n",
+                    footer: 'Jenkins - the builder',
+                    image: '',
+                    link: "$env.BUILD_URL",
+                    successful: true,
+                    thumbnail: 'https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png',
+                    title: "$env.JOB_NAME",
+                    webhookURL: "${DISCORD_WEBHOOK}"
+            )
+        }
+        failure {
+            /*
+             * Disabled until email notification requirements where set up
+            emailext(
+                    subject: "RED: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                    body: '${JELLY_SCRIPT,template="html"}',
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    to: "to@be.defined",
+                    replyTo: "to@be.defined"
+            )
+            */
+            discordSend(
+                    description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Failed\n",
+                    footer: 'Jenkins - the builder',
+                    image: '',
+                    link: "$env.BUILD_URL",
+                    successful: true,
+                    thumbnail: 'https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png',
+                    title: "$env.JOB_NAME",
+                    webhookURL: "${DISCORD_WEBHOOK}"
+            )
         }
     }
 }
