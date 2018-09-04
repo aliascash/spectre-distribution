@@ -162,7 +162,9 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Debian/binary/Dockerfile ."
+                            // Additionally replace tag 'latest' with release version to use proper docker
+                            // image to grab binaries from
+                            sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Debian/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-debian",
                                     "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
@@ -185,7 +187,9 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./CentOS/binary/Dockerfile ."
+                            // Additionally replace tag 'latest' with release version to use proper docker
+                            // image to grab binaries from
+                            sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./CentOS/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-centos",
                                     "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
@@ -208,7 +212,9 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Fedora/binary/Dockerfile ."
+                            // Additionally replace tag 'latest' with release version to use proper docker
+                            // image to grab binaries from
+                            sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Fedora/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-fedora",
                                     "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
@@ -230,7 +236,9 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./RaspberryPi/binary/Dockerfile ."
+                            // Additionally replace tag 'latest' with release version to use proper docker
+                            // image to grab binaries from
+                            sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./RaspberryPi/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-raspi",
                                     "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
@@ -252,7 +260,9 @@ pipeline {
                         script {
                             // Copy step on Dockerfile is not working if Dockerfile is not located on root dir!
                             // So copy required Dockerfile to root dir for each build
-                            sh "cp ./Ubuntu/binary/Dockerfile ."
+                            // Additionally replace tag 'latest' with release version to use proper docker
+                            // image to grab binaries from
+                            sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Ubuntu/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-ubuntu",
                                     "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
