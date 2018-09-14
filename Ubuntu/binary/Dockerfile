@@ -1,4 +1,5 @@
 FROM spectreproject/github-uploader:latest
+MAINTAINER HLXEasy <hlxeasy@gmail.com>
 
 ARG GITHUB_TOKEN=1234567
 ARG SPECTRECOIN_RELEASE=latest
