@@ -12,8 +12,7 @@ pipeline {
         // In case another branch beside master or develop should be deployed, enter it here
         BRANCH_TO_DEPLOY = 'xyz'
         GITHUB_TOKEN = credentials('cdc81429-53c7-4521-81e9-83a7992bca76')
-        SPECTRECOIN_RELEASE = "2.0.7"
-        SPECTRECOIN_RELEASE_LONG = "v${SPECTRECOIN_RELEASE}"
+        SPECTRECOIN_RELEASE = "2.0.8.RC1"
         DISCORD_WEBHOOK = credentials('991ce248-5da9-4068-9aea-8a6c2c388a19')
     }
     stages {
@@ -47,7 +46,7 @@ pipeline {
                             sh "cp ./Debian/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-debian",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -70,7 +69,7 @@ pipeline {
                             sh "cp ./CentOS/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-centos",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -93,7 +92,7 @@ pipeline {
                             sh "cp ./Fedora/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-fedora",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -115,7 +114,7 @@ pipeline {
                             sh "cp ./RaspberryPi/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-raspi",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -137,7 +136,7 @@ pipeline {
                             sh "cp ./Ubuntu/binary/Dockerfile ."
                             docker.build(
                                     "spectreproject/spectre-distribution-ubuntu",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre-distribution --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_REPOSITORY=spectre --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -168,7 +167,7 @@ pipeline {
                             sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Debian/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-debian",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE_LONG} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -193,7 +192,7 @@ pipeline {
                             sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./CentOS/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-centos",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE_LONG} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -218,7 +217,7 @@ pipeline {
                             sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Fedora/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-fedora",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE_LONG} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -242,7 +241,7 @@ pipeline {
                             sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./RaspberryPi/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-raspi",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE_LONG} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -266,7 +265,7 @@ pipeline {
                             sh "sed 's#latest /usr/local/bin/spectrecoin#${SPECTRECOIN_RELEASE} /usr/local/bin/spectrecoin#g' ./Ubuntu/binary/Dockerfile > ./Dockerfile"
                             docker.build(
                                     "spectreproject/spectre-distribution-ubuntu",
-                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE_LONG} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
+                                    "--rm --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg SPECTRECOIN_RELEASE=${SPECTRECOIN_RELEASE} --build-arg REPLACE_EXISTING_ARCHIVE=--replace ."
                             )
                             sh "rm Dockerfile"
                         }
@@ -345,7 +344,7 @@ pipeline {
                     footer: 'Jenkins - the builder',
                     image: '',
                     link: "$env.BUILD_URL",
-                    successful: true,
+                    successful: false,
                     thumbnail: 'https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png',
                     title: "$env.JOB_NAME",
                     webhookURL: "${DISCORD_WEBHOOK}"

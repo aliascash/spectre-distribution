@@ -3,17 +3,16 @@ MAINTAINER HLXEasy <hlxeasy@gmail.com>
 
 ARG GITHUB_TOKEN=1234567
 ARG SPECTRECOIN_RELEASE=latest
-ARG SPECTRECOIN_REPOSITORY=spectre
+ARG SPECTRECOIN_REPOSITORY=spectre-rpc-sh-ui
 ARG REPLACE_EXISTING_ARCHIVE=''
 #ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-ENV ARCHIVE=Spectrecoin-${SPECTRECOIN_RELEASE}-Debian.tgz
+ENV ARCHIVE=Dialog-1.3-20180621.tgz
 
-RUN mkdir -p /filesToUpload/usr/local/bin
+RUN mkdir -p /filesToUpload/
 
 # Unfortunately it is not possible to use parameters on "--from=...",
 # so we need separate Dockerfiles
-COPY --from=spectreproject/spectre:latest /usr/local/bin/spectrecoin  /filesToUpload/usr/local/bin/
-COPY --from=spectreproject/spectre:latest /usr/local/bin/spectrecoind /filesToUpload/usr/local/bin/
+COPY --from=spectreproject/spectre-builder-raspi:latest /newDialog/  /filesToUpload/
 
 RUN cd /filesToUpload \
  && tar czf ${ARCHIVE} . \
