@@ -157,7 +157,8 @@ pipeline {
                             sh "docker run \\\n" +
                                     "--rm \\\n" +
                                     "-e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
-                                    "-v ${WORKSPACE}:/filesToUpload spectreproject/github-deployer:latest \\\n" +
+                                    "-v ${WORKSPACE}:/filesToUpload \\\n" +
+                                    "spectreproject/github-uploader:latest \\\n" +
                                     "github-release upload \\\n" +
                                     "    --user spectrecoin \\\n" +
                                     "    --repo spectre \\\n" +
