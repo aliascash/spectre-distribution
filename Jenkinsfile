@@ -163,7 +163,8 @@ pipeline {
                                     "    --repo spectre \\\n" +
                                     "    --tag latest \\\n" +
                                     "    --name \"Spectrecoin-latest-WIN64.zip\" \\\n" +
-                                    "    --file /filesToUpload/Spectrecoin.zip"
+                                    "    --file /filesToUpload/Spectrecoin.zip \\\n" +
+                                    "    --replace"
                         }
                     }
                     post {
@@ -318,7 +319,8 @@ pipeline {
                                     "    --repo spectre \\\n" +
                                     "    --tag latest \\\n" +
                                     "    --name \"Spectrecoin-${SPECTRECOIN_RELEASE}-WIN64.zip\" \\\n" +
-                                    "    --file /filesToUpload/Spectrecoin.zip"
+                                    "    --file /filesToUpload/Spectrecoin.zip \\\n" +
+                                    "    --replace"
                         }
                     }
                     post {
@@ -333,18 +335,6 @@ pipeline {
     post {
         success {
             script {
-                /*
-                 * Disabled until email notification requirements where set up
-                if (!hudson.model.Result.SUCCESS.equals(currentBuild.getPreviousBuild()?.getResult())) {
-                    emailext(
-                            subject: "GREEN: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                            body: '${JELLY_SCRIPT,template="html"}',
-                            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                            to: "to@be.defined",
-                            replyTo: "to@be.defined"
-                    )
-                }
-                */
                 discordSend(
                         description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Success\n",
                         footer: 'Jenkins - the builder',
@@ -358,16 +348,6 @@ pipeline {
             }
         }
         unstable {
-            /*
-             * Disabled until email notification requirements where set up
-            emailext(
-                    subject: "YELLOW: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                    body: '${JELLY_SCRIPT,template="html"}',
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                    to: "to@be.defined",
-                    replyTo: "to@be.defined"
-            )
-            */
             discordSend(
                     description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Unstable\n",
                     footer: 'Jenkins - the builder',
@@ -380,16 +360,6 @@ pipeline {
             )
         }
         failure {
-            /*
-             * Disabled until email notification requirements where set up
-            emailext(
-                    subject: "RED: '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                    body: '${JELLY_SCRIPT,template="html"}',
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                    to: "to@be.defined",
-                    replyTo: "to@be.defined"
-            )
-            */
             discordSend(
                     description: "**Build:**  #$env.BUILD_NUMBER\n**Status:**  Failed\n",
                     footer: 'Jenkins - the builder',
