@@ -152,7 +152,7 @@ pipeline {
                     }
                     steps {
                         script {
-                            sh "wget https://ci.spectreproject.io/job/ThisAndThat/job/continuous-integration-windows/lastSuccessfulBuild/artifact/Spectrecoin.zip"
+                            sh "wget https://ci.spectreproject.io/job/Spectrecoin/job/spectre/job/develop/lastSuccessfulBuild/artifact/Spectrecoin-latest.zip"
                             sh "docker run \\\n" +
                                     "--rm \\\n" +
                                     "-e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
@@ -163,7 +163,7 @@ pipeline {
                                     "    --repo spectre \\\n" +
                                     "    --tag latest \\\n" +
                                     "    --name \"Spectrecoin-latest-WIN64.zip\" \\\n" +
-                                    "    --file /filesToUpload/Spectrecoin.zip \\\n" +
+                                    "    --file /filesToUpload/Spectrecoin-latest.zip \\\n" +
                                     "    --replace"
                         }
                     }
@@ -308,7 +308,7 @@ pipeline {
                     }
                     steps {
                         script {
-                            sh "wget https://ci.spectreproject.io/job/ThisAndThat/job/continuous-integration-windows/lastSuccessfulBuild/artifact/Spectrecoin.zip"
+                            sh "wget https://ci.spectreproject.io/job/Spectrecoin/job/spectre/job/master/lastSuccessfulBuild/artifact/Spectrecoin-${SPECTRECOIN_RELEASE}.zip"
                             sh "docker run \\\n" +
                                     "--rm \\\n" +
                                     "-e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
@@ -319,7 +319,7 @@ pipeline {
                                     "    --repo spectre \\\n" +
                                     "    --tag latest \\\n" +
                                     "    --name \"Spectrecoin-${SPECTRECOIN_RELEASE}-WIN64.zip\" \\\n" +
-                                    "    --file /filesToUpload/Spectrecoin.zip \\\n" +
+                                    "    --file /filesToUpload/Spectrecoin-${SPECTRECOIN_RELEASE}.zip \\\n" +
                                     "    --replace"
                         }
                     }
