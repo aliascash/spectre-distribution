@@ -163,7 +163,7 @@ pipeline {
                                     "    --user spectrecoin \\\n" +
                                     "    --repo spectre \\\n" +
                                     "    --tag latest \\\n" +
-                                    "    --name \"Spectrecoin-latest-RaspbianLight.zip\" \\\n" +
+                                    "    --name \"Spectrecoin-latest-WIN64.zip\" \\\n" +
                                     "    --file /filesToUpload/Spectrecoin.zip"
                         }
                     }
