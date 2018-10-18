@@ -156,7 +156,6 @@ pipeline {
                             sh "wget https://ci.spectreproject.io/job/ThisAndThat/job/continuous-integration-windows/lastSuccessfulBuild/artifact/Spectrecoin.zip"
                             sh "docker run \\\n" +
                                     "--rm \\\n" +
-                                    "-it \\\n" +
                                     "-e GITHUB_TOKEN=${GITHUB_TOKEN} \\\n" +
                                     "-v ${WORKSPACE}:/filesToUpload spectreproject/github-deployer:latest \\\n" +
                                     "github-release upload \\\n" +
